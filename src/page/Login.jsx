@@ -38,9 +38,8 @@ const Login = () => {
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify(response.user || {}));
 
-        console.log("LocalStorage dagi token:", localStorage.getItem("token")); // Tekshirish
+        console.log("LocalStorage dagi token:", localStorage.getItem("token"));
 
-        // Login muvaffaqiyatli bo'lsa, home sahifasiga yo'naltirish
         navigate("/");
       } else {
         setError(response?.message || "Email yoki parol noto‘g‘ri.");
@@ -53,13 +52,13 @@ const Login = () => {
   return (
     <>
       <Navbar />
-      <div className="flex flex-col p-8 ml-[200px]">
+      <div className="flex flex-col ml-[200px]">
         <div className="bg-white p-4 w-[600px] rounded-lg">
           <h2 className="text-[#17a2b8] text-[50px] font-bold">Sign In</h2>
           {error && <p className="text-center text-red-500">{error}</p>}
           <div className="flex items-center py-2 ">
-            <FaUser className="w-6 h-6 mr-3" />
-            <h2 className="text-xl py-[15px]">Sign into Your Account</h2>
+            <FaUser className="w-[24px] h-[24px] mr-3" />
+            <h2 className="text-xl py-[16px]">Sign Into Your Account</h2>
           </div>
           <form onSubmit={handleSubmit} className="flex flex-col">
             <input
@@ -68,16 +67,16 @@ const Login = () => {
               placeholder="Email Address"
               value={formData.email}
               onChange={handleChange}
-              className="w-[1063px] p-2 outline-none text-sm border border-gray-300 rounded mb-2 bg-gray-50"
+              className="w-[1063px] p-1 outline-none text-[19px]  border border-gray-300  mb-4 "
               required
             />
             <input
               type="password"
               name="password"
-              placeholder="Parol"
+              placeholder="Password"
               value={formData.password}
               onChange={handleChange}
-              className="w-[1063px] p-2 mb-2 text-sm border border-gray-300 rounded outline-none bg-gray-50"
+              className="w-[1063px] p-1 mb-2 text-[19px] border border-gray-300 outline-none "
               required
             />
             <button
