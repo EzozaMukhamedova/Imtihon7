@@ -23,6 +23,15 @@ const Navbar = () => {
                 to={"/"}
                 className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
               >
+                Home
+              </NavLink>
+            </li>
+            
+            <li>
+              <NavLink
+                to={"/dev"}
+                className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
+              >
                 Developers
               </NavLink>
             </li>
