@@ -10,6 +10,8 @@ import Posts from "./page/Posts";
 import ProtectedRoute from "./router/ProtectedRoute";
 import Dash from "./page/Dash";
 
+import PostDetails from "./router/PostDetails";
+
 function App() {
   return (
     <AuthProvider>
@@ -43,6 +45,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Posts />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/post/:id"
+            element={
+              <ProtectedRoute>
+                <PostDetails />
               </ProtectedRoute>
             }
           />

@@ -7,8 +7,10 @@ import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
 import like from "../assets/svg/like.svg";
 import dislike from "../assets/svg/dislike.svg";
+import { useNavigate } from "react-router-dom";
 
 const Posts = () => {
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const { user, token } = useContext(AuthContext) || {};
   const [loading, setLoading] = useState(true);
@@ -176,7 +178,10 @@ const Posts = () => {
                     src={dislike}
                     alt="Dislike"
                   />
-                  <button className="w-[119px] cursor-pointer bg-[#17a2b8] text-white h-[38.4px] p-[7px] border-[#17a2b8]">
+                  <button
+                    className="w-[119px] cursor-pointer bg-[#17a2b8] text-white h-[38.4px] p-[7px] border-[#17a2b8]"
+                    onClick={() => navigate(`/post/${post._id}`)}
+                  >
                     Discussion
                   </button>
 
