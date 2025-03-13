@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { register } from "../service/authService";
 import { FaUser } from "react-icons/fa";
 import Navbar from "../components/Navbar";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Register = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -44,7 +46,20 @@ const Register = () => {
         setUser({});
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify({}));
-        navigate("/dashboard");
+
+        toast.success("Ro‘yxatdan o‘tish muvaffaqiyatli!", {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+
+        setTimeout(() => {
+          navigate("/dash");
+        }, 3000);
       } else {
         setError("Ro‘yxatdan o‘tishda muammo yuz berdi.");
       }

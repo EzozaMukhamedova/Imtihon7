@@ -33,7 +33,16 @@ const Profile = () => {
     fetchProfile();
   }, [id]);
 
-  if (loading) return <p>Yuklanmoqda...</p>;
+  if (loading)
+    return (
+      <div className="flex flex-col items-center justify-center h-screen">
+        <div className="w-12 h-12 border-4 border-[#17a2b8] border-t-transparent rounded-full animate-spin"></div>
+
+        <h1 className="mt-4 text-lg font-semibold text-gray-600">
+          Yuklanmoqda...
+        </h1>
+      </div>
+    );
   if (error) return <p className="text-red-500">{error}</p>;
   if (!profile) return <p className="text-red-500">Profil topilmadi!</p>;
 

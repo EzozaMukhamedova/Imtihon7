@@ -19,7 +19,8 @@ const Dash = () => {
             <FaUser className="w-6 h-6 mr-3" />
             <h2 className="text-[26px]  ">
               {" "}
-              Welcome Guest <span className="font-bold">
+              Welcome Guest{" "}
+              <span className="font-bold">
                 {/* {user?.name || "Guest"} */}
               </span>{" "}
             </h2>
