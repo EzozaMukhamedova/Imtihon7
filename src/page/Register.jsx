@@ -44,7 +44,7 @@ const Register = () => {
         setUser({});
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify({}));
-        navigate("/");
+        navigate("/dashboard");
       } else {
         setError("Ro‘yxatdan o‘tishda muammo yuz berdi.");
       }
@@ -60,7 +60,9 @@ const Register = () => {
       <Navbar />
       <div className="flex flex-col  ml-[200px]">
         <div className="bg-white p-4 w-[600px]">
-          <h2 className="text-[#17a2b8] text-[50px] ml-4 font-bold stroke-[3]">Sign Up</h2>
+          <h2 className="text-[#17a2b8] text-[50px] ml-4 font-bold stroke-[3]">
+            Sign Up
+          </h2>
           <div className="flex items-center py-4 ml-4">
             <FaUser className="mr-3 w-[24px] h-[24px] font-[#333333]" />
             <h2 className="text-[25px]">Create Your Account</h2>
@@ -130,7 +132,7 @@ const Register = () => {
 
             <button
               type="submit"
-              className="w-[100px] ml-4 bg-[#17a2b8] text-white py-2 mt-4"
+              className="w-[100px] ml-4 bg-[#17a2b8] text-white py-2 mt-4 cursor-pointer"
             >
               Register
             </button>

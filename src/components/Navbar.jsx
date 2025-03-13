@@ -26,7 +26,7 @@ const Navbar = () => {
                 Home
               </NavLink>
             </li>
-            
+
             <li>
               <NavLink
                 to={"/dev"}
@@ -35,6 +35,25 @@ const Navbar = () => {
                 Developers
               </NavLink>
             </li>
+
+            <li>
+              <NavLink
+                to={"/posts"}
+                className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
+              >
+                Posts
+              </NavLink>
+            </li>
+
+            {/* <li>
+              <NavLink
+                to={"/dashboard"}
+                className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
+              >
+                Dashboard
+              </NavLink>
+            </li> */}
+
             <li>
               <NavLink
                 to="/register"

@@ -29,9 +29,8 @@ const Login = () => {
       console.log("Server javobi:", response);
 
       if (response?.token) {
-        console.log("Serverdan kelgan token:", response.token); // Tokenni tekshirish
+        console.log("Serverdan kelgan token:", response.token);
 
-        // Tokenni Context va localStorage'ga saqlash
         setToken(response.token);
         setUser(response.user || {});
 
@@ -40,7 +39,7 @@ const Login = () => {
 
         console.log("LocalStorage dagi token:", localStorage.getItem("token"));
 
-        navigate("/");
+        navigate("/dashboard");
       } else {
         setError(response?.message || "Email yoki parol noto‘g‘ri.");
       }
@@ -81,7 +80,7 @@ const Login = () => {
             />
             <button
               type="submit"
-              className="w-[80px] bg-[#17a2b8] text-white py-2 mt-[15px] hover:bg-[#138a9c] transition"
+              className="w-[80px] bg-[#17a2b8] text-white py-2 mt-[15px] hover:bg-[#138a9c] transition cursor-pointer"
             >
               Login
             </button>
@@ -93,7 +92,7 @@ const Login = () => {
             Don't have an account?{" "}
             <span
               className="text-[#17a2b8] cursor-pointer"
-              onClick={() => navigate("/register")}
+              onClick={() => navigate("/dashboard")}
             >
               Sign Up
             </span>

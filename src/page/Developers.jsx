@@ -71,10 +71,9 @@ const Developers = () => {
     <>
       <Navbar />
       <div className="bg-white p-4 ml-[220px] rounded-lg">
-        <h2 className="text-[#17a2b8] text-[50px] font-bold">Developers</h2>
-        <div className="flex items-center py-2 ">
-          <FaUser className="w-6 h-6 mr-3" />
-          <h2 className="text-xl py-[15px]">
+        <h2 className="text-[#17a2b8] text-[50px] font-bold ">Developers</h2>
+        <div className="flex items-center ">
+          <h2 className="text-[24px] py-[15px]">
             Browse and connect with developers
           </h2>
         </div>
@@ -86,22 +85,21 @@ const Developers = () => {
           >
             <div className="w-[214px] h-[214px] m-[15px] flex flex-col items-center">
               <img
-                className="w-[214px] h-[214px] rounded-[100px]"
+                className="w-[234px] h-[234px] rounded-full object-cover"
                 src={item.user.avatar}
                 alt=""
               />
             </div>
             <div className="w-[428px] h-[174px] m-[15px]">
               <h3 className="text-[24px] font-[600]">{item.user.name}</h3>
-              <p className="text-[#aaa] text-[14px] my-[5px] h-[30px]">
+              <p className=" text-[16px] my-[5px] h-[30px]">
                 {item.status} at {item.company}
               </p>
               <p className="h-[30px] my-[16px]">{item.location}</p>
               <div className="flex gap-[8px]">
-                {/* 🔹 Developer sahifasiga yo‘naltirish */}
                 <button
                   onClick={() => navigate(`/profile/${item.user._id}`)}
-                  className="w-[119px] cursor-pointer bg-[#17a2b8] text-white h-[38.4px] p-[7px] border-[#17a2b8]"
+                  className="w-[119px] cursor-pointer bg-[#17a2b8] text-white h-[38.4px] p-[7px] border-[#17a2b8]  hover:bg-[#138496] transition-all duration-300"
                 >
                   View Profile
                 </button>

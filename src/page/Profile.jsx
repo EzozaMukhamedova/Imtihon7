@@ -40,29 +40,27 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-4xl p-4 mx-auto mt-10">
-        {/* Back Button */}
+      <div className="w-[1036px] p-4 mx-auto mt-10">
         <button
-          onClick={() => navigate("/developers")}
-          className="px-4 py-2 text-sm bg-gray-200 rounded hover:bg-gray-300"
+          onClick={() => navigate("/dev")}
+          className="px-4 py-2 text-[16px] bg-gray-100 rounded cursor-pointer hover:bg-gray-200"
         >
           Back To Profiles
         </button>
 
-        {/* Profile Header */}
-        <div className="bg-[#0fa3b1] text-white text-center p-10 rounded-lg mt-4">
+        <div className="bg-[#0fa3b1] h-[567px]  text-white text-center p-10  mt-4">
           <img
-            className="w-[120px] h-[120px] rounded-full mx-auto border-4 border-white"
+            className="w-[250px] h-[250px] rounded-full mx-auto border-white"
             src={profile.user.avatar}
             alt={profile.user.name}
           />
-          <h2 className="mt-2 text-2xl font-bold">
+          <h2 className="mt-2 text-[48px] font-bold">
             {profile.user.name || "No Name"}
           </h2>
-          <p className="text-lg">
+          <p className="text-[24px]">
             {profile.status} at {profile.company || "N/A"}
           </p>
-          <p className="text-sm">{profile.location || "N/A"}</p>
+          <p className="text-[16px]">{profile.location || "N/A"}</p>
           {profile.website && (
             <a
               href={profile.website}
@@ -70,19 +68,20 @@ const Profile = () => {
               rel="noopener noreferrer"
               className="inline-block mt-2 text-white"
             >
-              <FaGlobe className="inline-block mr-2" /> Website
+              <FaGlobe className="inline-block mr-2 w-[32px] h-[32px] text-white hover:text-gray-600 transition-colors duration-300" />
             </a>
           )}
         </div>
 
-        {/* Bio & Skills Section */}
-        <div className="p-6 mt-6 text-center bg-gray-100 rounded-lg">
-          <h3 className="text-xl font-semibold text-gray-700">Bio</h3>
+        <div className="p-6 mt-6 text-center bg-gray-100">
+          <h3 className="text-[24px] font-semibold text-[#0fa3b1]">nos Bio</h3>
           <p className="mt-2 text-gray-600">
             {profile.bio || "No bio available"}
           </p>
           <hr className="my-4" />
-          <h3 className="text-xl font-semibold text-gray-700">Skill Set</h3>
+          <h3 className="text-[24px] font-semibold text-[#0fa3b1]">
+            Skill Set
+          </h3>
           <ul className="flex flex-wrap justify-center gap-2 mt-2">
             {profile.skills.map((skill, index) => (
               <li
@@ -95,10 +94,9 @@ const Profile = () => {
           </ul>
         </div>
 
-        {/* Experience & Education Section */}
         <div className="grid grid-cols-1 gap-4 mt-6 md:grid-cols-2">
-          <div className="p-4 text-center border rounded-lg">
-            <h3 className="text-lg font-bold text-gray-700">Experience</h3>
+          <div className="p-4 text-center border border-gray-300">
+            <h3 className="text-[24px] font-bold text-[#0fa3b1]">Experience</h3>
             {profile.experience && profile.experience.length > 0 ? (
               profile.experience.map((exp, index) => (
                 <p key={index} className="text-gray-600">
@@ -110,8 +108,8 @@ const Profile = () => {
             )}
           </div>
 
-          <div className="p-4 text-center border rounded-lg">
-            <h3 className="text-lg font-bold text-gray-700">Education</h3>
+          <div className="p-4 text-center border border-gray-300">
+            <h3 className="text-[24px] font-bold text-[#0fa3b1]">Education</h3>
             {profile.education && profile.education.length > 0 ? (
               profile.education.map((edu, index) => (
                 <p key={index} className="text-gray-600">
@@ -124,10 +122,11 @@ const Profile = () => {
           </div>
         </div>
 
-        {/* GitHub Repos Section */}
         {profile.githubusername && (
           <div className="mt-6">
-            <h3 className="text-lg font-bold text-gray-700">GitHub Repos</h3>
+            <h3 className="text-[24px] font-bold text-[#0fa3b1]">
+              GitHub Repos
+            </h3>
             <a
               href={`https://github.com/${profile.githubusername}`}
               target="_blank"
