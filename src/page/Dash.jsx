@@ -2,13 +2,9 @@ import React from "react";
 import { FaUser } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
-// import AuthContext from "../context/AuthContext";
 
 const Dash = () => {
   const navigate = useNavigate();
-  // const storedUser = JSON.parse(localStorage.getItem("user"));
-  // const { user } = useContext(AuthContext) || { name: storedUser?.name };
-
   return (
     <div>
       <Navbar />

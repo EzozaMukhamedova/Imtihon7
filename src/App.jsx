@@ -11,6 +11,7 @@ import ProtectedRoute from "./router/ProtectedRoute";
 import Dash from "./page/Dash";
 
 import PostDetails from "./router/PostDetails";
+import CreateProfile from "./page/CreateProfile";
 
 function App() {
   return (
@@ -69,6 +70,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <Profile />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/CreateProfile"
+            element={
+              <ProtectedRoute>
+                <CreateProfile />
               </ProtectedRoute>
             }
           />

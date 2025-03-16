@@ -5,51 +5,146 @@ import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
-import like from "../assets/svg/like.svg";
-import dislike from "../assets/svg/dislike.svg";
+import likeIcon from "../assets/svg/like.svg";
+import dislikeIcon from "../assets/svg/dislike.svg";
 import { useNavigate } from "react-router-dom";
 
 const Posts = () => {
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
+  const [userMe, setUserMe] = useState(null);
   const { user, token } = useContext(AuthContext) || {};
   const [loading, setLoading] = useState(true);
   const [text, setText] = useState("");
   const finalToken = token || localStorage.getItem("token");
+  // const [visibleCount, setVisibleCount] = useState(10);
 
-  useEffect(() => {
-    async function getItemPosts() {
-      if (!finalToken) {
-        console.error("Token mavjud emas! Iltimos, login qiling.");
-        setLoading(false);
-        return;
-      }
-
-      try {
-        console.log("Token:", finalToken);
-        const res = await axios.get(
-          "https://nt-devconnector.onrender.com/api/posts",
-          {
-            headers: {
-              "Content-Type": "application/json",
-              "x-auth-token": finalToken,
-            },
-          }
-        );
-
-        console.log("Kelgan postlar:", res.data);
-        setPosts(res.data);
-      } catch (error) {
-        console.error("Xatolik yuz berdi:", error);
-        toast.error("Postlarni olishda xatolik yuz berdi!");
-      } finally {
-        setLoading(false);
-      }
+  async function getPosts() {
+    if (!finalToken) {
+      console.error("Token mavjud emas! Iltimos, login qiling.");
+      setLoading(false);
+      return;
     }
 
-    getItemPosts();
-  }, [finalToken]);
+    try {
+      console.log("Token:", finalToken);
+      const res = await axios.get(
+        "https://nt-devconnector.onrender.com/api/posts",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": finalToken,
+          },
+        }
+      );
 
+      console.log("Kelgan postlar:", res.data);
+      setPosts(res.data);
+    } catch (error) {
+      console.error("Xatolik yuz berdi:", error);
+      toast.error("Postlarni olishda xatolik yuz berdi!");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  ////
+
+  async function getMe() {
+    try {
+      const res = await axios.get(
+        "https://nt-devconnector.onrender.com/api/auth",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "x-auth-token": finalToken,
+          },
+        }
+      );
+      setUserMe(res?.data?._id);
+      console.log(res?.data?._id);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    getPosts();
+    getMe();
+  }, [finalToken]);
+  ////
+  // async function like(id) {
+  //   await axios.put(
+  //     `https://nt-devconnector.onrender.com/api/posts/like/${id}`,
+  //     {},
+  //     {
+  //       headers: {
+  //         // "Content-Type": "application/json",
+  //         "x-auth-token": finalToken,
+  //       },
+  //     }
+  //   );
+  // }
+
+  // async function dislike(id) {
+  //   await axios.put(
+  //     `https://nt-devconnector.onrender.com/api/posts/unlike/${id}`,
+  //     {},
+  //     {
+  //       headers: {
+  //         // "Content-Type": "application/json",
+  //         "x-auth-token": finalToken,
+  //       },
+  //     }
+  //   );
+  // }
+
+  async function like(id) {
+    try {
+      const res = await axios.put(
+        `https://nt-devconnector.onrender.com/api/posts/like/${id}`,
+        {},
+        { headers: { "x-auth-token": finalToken } }
+      );
+
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post._id === id ? { ...post, likes: res.data } : post
+        )
+      );
+
+      toast.success("Like bosildi!");
+    } catch (error) {
+      console.error("Like qilishda xatolik:", error);
+      toast.error("Like qilishda xatolik yuz berdi!");
+    }
+  }
+
+  async function dislike(id) {
+    try {
+      const res = await axios.put(
+        `https://nt-devconnector.onrender.com/api/posts/unlike/${id}`,
+        {},
+        { headers: { "x-auth-token": finalToken } }
+      );
+
+      setPosts((prevPosts) =>
+        prevPosts.map((post) =>
+          post._id === id ? { ...post, likes: res.data } : post
+        )
+      );
+
+      toast.success("Dislike qilindi!");
+    } catch (error) {
+      console.error("Dislike qilishda xatolik:", error);
+      toast.error("Dislike qilishda xatolik yuz berdi!");
+    }
+  }
+
+  useEffect(() => {
+    console.log(userMe);
+  }, [userMe]);
+  ///
+  ////
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -74,7 +169,7 @@ const Posts = () => {
       console.log("Yangi post yaratildi:", res.data);
 
       setPosts((prevPosts) => [res.data, ...prevPosts]);
-      setText("");
+      setText(""); //aiteirunoha dame
       toast.success("Post muvaffaqiyatli yaratildi!");
     } catch (error) {
       console.error("Post yaratishda xatolik:", error);
@@ -107,6 +202,10 @@ const Posts = () => {
       toast.error("Postni o‘chirishda xatolik yuz berdi!");
     }
   }
+
+  // const showMore = () => {
+  //   setVisibleCount(posts.length);
+  // };
 
   if (loading) return <Loading />;
 
@@ -168,31 +267,51 @@ const Posts = () => {
                   Posted on {new Date(post.date).toLocaleDateString("uz-UZ")}
                 </p>
                 <div className="flex gap-[8px]">
-                  <img
-                    className="w-[47px] h-[32px] p-[7px] border-[#f4f4f4] border bg-[#f4f4f4] cursor-pointer "
-                    src={like}
-                    alt="Like"
-                  />
-                  <img
-                    className="w-[47px] h-[32px] p-[7px] border-[#f4f4f4] border bg-[#f4f4f4] cursor-pointer"
-                    src={dislike}
-                    alt="Dislike"
-                  />
+                  {/* /// */}
+                  <button
+                    onClick={() => like(post?._id)}
+                    className="relative inline-flex items-center justify-center w-[57px] h-[32px] border border-[#f4f4f4] bg-[#f4f4f4] cursor-pointer"
+                  >
+                    <div className="flex"></div>
+                    <img
+                      className="w-[47px] h-[32px] p-[7px] border-[#f4f4f4] border bg-[#f4f4f4] cursor-pointer"
+                      src={likeIcon}
+                      alt="Like"
+                    />
+                    {post?.likes.length > 0 && (
+                      <span className="absolute text-[12px] font-semibold top-[50%] left-[70%] translate-x-[30%] translate-y-[-50%]">
+                        {post?.likes.length}
+                      </span>
+                    )}
+                    {/* tsuikasareta tokoro like dislike  */}
+                  </button>
+
+                  <button
+                    onClick={() => dislike(post?._id)}
+                    className="relative inline-flex items-center justify-center w-[57px] h-[32px] border border-[#f4f4f4] bg-[#f4f4f4] cursor-pointer"
+                  >
+                    <img
+                      className="w-[47px] h-[32px] p-[7px] border-[#f4f4f4] border bg-[#f4f4f4] cursor-pointer"
+                      src={dislikeIcon}
+                      alt="Dislike"
+                    />
+                  </button>
+
+                  {/* ////// */}
                   <button
                     className="w-[119px] cursor-pointer bg-[#17a2b8] text-white h-[38.4px] p-[7px] border-[#17a2b8]"
                     onClick={() => navigate(`/post/${post._id}`)}
                   >
                     Discussion
                   </button>
-
-                  {/* {(post.user?._id || post.user) === user._id && ( */}
-                  <button
-                    onClick={() => handleDelete(post._id)}
-                    className="px-4 py-1 text-white transition-all duration-300 bg-red-500 cursor-pointer hover:bg-red-600"
-                  >
-                    X
-                  </button>
-                  {/* )} */}
+                  {post?.user === userMe && (
+                    <button
+                      onClick={() => handleDelete(post?._id)}
+                      className="px-4 py-1 text-white transition-all duration-300 bg-red-500 cursor-pointer hover:bg-red-600"
+                    >
+                      X
+                    </button>
+                  )}
                 </div>
               </div>
             </div>
