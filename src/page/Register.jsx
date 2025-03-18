@@ -58,7 +58,7 @@ const Register = () => {
         });
 
         setTimeout(() => {
-          navigate("/dash");
+          navigate("/login");
         }, 3000);
       } else {
         setError("Ro‘yxatdan o‘tishda muammo yuz berdi.");
