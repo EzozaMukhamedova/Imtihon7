@@ -116,7 +116,8 @@ const PostDetails = () => {
                   />
                 </button>
                 <button className="bg-[#17a2b8] px-2 py-1 text-white cursor-pointer">
-                  Discussion {comments.length}
+                  Discussion {comments.length} 
+                  {/* komentono nagasa wo hakaru */}
                 </button>
               </div>
             </div>
