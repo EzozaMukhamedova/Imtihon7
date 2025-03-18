@@ -350,6 +350,7 @@ export default function Posts() {
     isLoading: userLoading,
   } = useGetMeQuery();
   const { data: posts = [], error, isLoading } = useGetPostsQuery();
+  // const userMe = profile?.user?._id;
   const [deletePost] = useDeletePostMutation();
   const [addPost] = useAddPostMutation();
   const [likePost] = useLikePostMutation();
@@ -465,14 +466,14 @@ export default function Posts() {
                   >
                     Discussion
                   </button>
-                  {/* {post?.user === userMe && ( */}
-                  <button
-                    onClick={() => deletePost(post?._id)}
-                    className="px-4 py-1 text-white transition-all duration-300 bg-red-500 cursor-pointer hover:bg-red-600"
-                  >
-                    X
-                  </button>
-                  {/* )} */}
+                  {post.user === userMe?._id && (
+                    <button
+                      onClick={() => deletePost(post?._id)}
+                      className="px-4 py-1 text-white transition-all duration-300 bg-red-500 cursor-pointer hover:bg-red-600"
+                    >
+                      X
+                    </button>
+                  )}
                 </div>
               </div>
             </div>

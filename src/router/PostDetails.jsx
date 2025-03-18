@@ -1,77 +1,130 @@
-import React, { useEffect, useState, useContext } from "react";
+// import React, { useEffect, useState, useContext } from "react";
+// import { useParams, useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import Navbar from "../components/Navbar";
+// import Loading from "../components/Loading";
+// import AuthContext from "../context/AuthContext";
+// import likeIcon from "../assets/svg/like.svg";
+// import dislikeIcon from "../assets/svg/dislike.svg";
+// import {
+//   useGetPostByIdQuery,
+//   useAddCommentMutation,
+//   useDeleteCommentMutation,
+// } from "../redux/postsApi";
+
+// const PostDetails = () => {
+// const { id } = useParams();
+// const navigate = useNavigate();
+// const { token, user } = useContext(AuthContext);
+// const [post, setPost] = useState(null);
+// const [loading, setLoading] = useState(true);
+// const [comment, setComment] = useState("");
+// const [comments, setComments] = useState([]);
+
+// useEffect(() => {
+//   const fetchPost = async () => {
+//     try {
+//       const res = await axios.get(
+//         `https://nt-devconnector.onrender.com/api/posts/${id}`,
+//         {
+//           headers: { "x-auth-token": token || localStorage.getItem("token") },
+//         }
+//       );
+//       setPost(res.data);
+//       setComments(res.data.comments);
+//     } catch (error) {
+//       console.error("Error:", error);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+//   fetchPost();
+// }, [id, token]);
+
+// const addComment = async () => {
+//   if (!comment.trim()) return;
+
+//   try {
+//     const res = await axios.post(
+//       `https://nt-devconnector.onrender.com/api/posts/comment/${id}`,
+//       { text: comment },
+//       {
+//         headers: { "x-auth-token": token || localStorage.getItem("token") },
+//       }
+//     );
+
+//     setComments(res.data);
+//     setComment("");
+//   } catch (error) {
+//     console.error("Comment qo'shishda xatolik:", error);
+//   }
+// };
+
+// const deleteComment = async (commentId) => {
+//   try {
+//     const res = await axios.delete(
+//       `https://nt-devconnector.onrender.com/api/posts/comment/${id}/${commentId}`,
+//       {
+//         headers: { "x-auth-token": token || localStorage.getItem("token") },
+//       }
+//     );
+
+//     setComments(res.data);
+//   } catch (error) {
+//     console.error("Comment o'chirishda xatolik:", error);
+//   }
+// };
+
+// if (loading) return <Loading />;
+
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
 import Navbar from "../components/Navbar";
 import Loading from "../components/Loading";
-import AuthContext from "../context/AuthContext";
+import {
+  useGetPostByIdQuery,
+  useAddCommentMutation,
+  useDeleteCommentMutation,
+} from "../redux/postApi";
 import likeIcon from "../assets/svg/like.svg";
 import dislikeIcon from "../assets/svg/dislike.svg";
 
 const PostDetails = () => {
   const { id } = useParams();
+  const [state, setState] = useState(false);
   const navigate = useNavigate();
-  const { token, user } = useContext(AuthContext);
-  const [post, setPost] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { data: post, error, isLoading } = useGetPostByIdQuery(id);
+  const [addComment, { isLoading: isAdding }] = useAddCommentMutation();
+  const [deleteComment] = useDeleteCommentMutation();
   const [comment, setComment] = useState("");
-  const [comments, setComments] = useState([]);
+  const [comments, setComments] = useState(post ? post.comments : []);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      try {
-        const res = await axios.get(
-          `https://nt-devconnector.onrender.com/api/posts/${id}`,
-          {
-            headers: { "x-auth-token": token || localStorage.getItem("token") },
-          }
-        );
-        setPost(res.data);
-        setComments(res.data.comments);
-      } catch (error) {
-        console.error("Error:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchPost();
-  }, [id, token]);
-
-  const addComment = async () => {
+  const handleAddComment = async () => {
     if (!comment.trim()) return;
-
     try {
-      const res = await axios.post(
-        `https://nt-devconnector.onrender.com/api/posts/comment/${id}`,
-        { text: comment },
-        {
-          headers: { "x-auth-token": token || localStorage.getItem("token") },
-        }
-      );
-
-      setComments(res.data);
+      const newComments = await addComment({ postId: id, comment }).unwrap();
+      setComments(newComments);
       setComment("");
     } catch (error) {
       console.error("Comment qo'shishda xatolik:", error);
     }
   };
 
-  const deleteComment = async (commentId) => {
+  const handleDeleteComment = async (commentId) => {
     try {
-      const res = await axios.delete(
-        `https://nt-devconnector.onrender.com/api/posts/comment/${id}/${commentId}`,
-        {
-          headers: { "x-auth-token": token || localStorage.getItem("token") },
-        }
-      );
-
-      setComments(res.data);
+      const updatedComments = await deleteComment({
+        postId: id,
+        commentId,
+      }).unwrap();
+      setComments(updatedComments);
     } catch (error) {
       console.error("Comment o'chirishda xatolik:", error);
     }
   };
 
-  if (loading) return <Loading />;
+  if (isLoading) return <Loading />;
+  if (error) return <p>Error loading post: {error.message}</p>;
 
   return (
     <>
@@ -116,7 +169,7 @@ const PostDetails = () => {
                   />
                 </button>
                 <button className="bg-[#17a2b8] px-2 py-1 text-white cursor-pointer">
-                  Discussion {comments.length} 
+                  Discussion {comments.length}
                   {/* komentono nagasa wo hakaru */}
                 </button>
               </div>
@@ -134,7 +187,7 @@ const PostDetails = () => {
           onChange={(e) => setComment(e.target.value)}
         />
         <button
-          onClick={addComment}
+          onClick={handleAddComment}
           className="bg-[#343a40] text-white px-4 py-2 mt-2 cursor-pointer hover:bg-gray-600 transition duration-300"
         >
           Submit
@@ -162,7 +215,7 @@ const PostDetails = () => {
                   <div className="">
                     {" "}
                     <button
-                      onClick={() => deleteComment(comment._id)}
+                      onClick={() => handleDeleteComment(comment._id)}
                       className="px-2 py-[6px] text-white bg-red-500 w-[52px] h-[39px] my-[16px] font-bold cursor-pointer hover:bg-red-600 transition duration-300"
                     >
                       X

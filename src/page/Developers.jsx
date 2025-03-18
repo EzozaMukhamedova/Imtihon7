@@ -1,67 +1,86 @@
-import React, { useState, useEffect, useContext } from "react";
-import AuthContext from "../context/AuthContext";
+// import React, { useState, useEffect, useContext } from "react";
+// import AuthContext from "../context/AuthContext";
+// import Navbar from "../components/Navbar";
+// import Loading from "../components/Card";
+// import { FaUser } from "react-icons/fa";
+// import { ImCheckmark } from "react-icons/im";
+// import { useNavigate } from "react-router-dom";
+
+// const Developers = () => {
+//   const navigate = useNavigate();
+//   const [profile, setProfile] = useState([]);
+//   const [loading, setLoading] = useState(true);
+//   const [error, setError] = useState("");
+//   const { token } = useContext(AuthContext);
+
+//   useEffect(() => {
+//     const fetchProfile = async () => {
+//       try {
+//         let storedToken = localStorage.getItem("token") || token;
+
+//         if (!storedToken) {
+//           setError("Token topilmadi, iltimos qayta login qiling.");
+//           setLoading(false);
+//           return;
+//         }
+
+//         const res = await fetch(
+//           "https://nt-devconnector.onrender.com/api/profile",
+//           {
+//             method: "GET",
+//             headers: {
+//               "Content-Type": "application/json",
+//               "X-Auth-Token": storedToken,
+//             },
+//           }
+//         );
+
+//         const data = await res.json();
+
+//         if (!res.ok) {
+//           throw new Error(data.msg || " xatolik yuz berdi!");
+//         }
+
+//         setProfile(Array.isArray(data) ? data : [data]);
+//       } catch (err) {
+//         console.error("Xatolik:", err);
+//         setError(
+//           err.message || "Server yoki API bilan bog‘liq muammo yuzaga keldi."
+//         );
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchProfile();
+//   }, [token]);
+
+//   if (loading)
+//     return (
+//       <p>
+//         <Loading />
+//       </p>
+//     );
+//   if (error) return <p className="text-red-500">x {error}</p>;
+//   if (profile.length === 0)
+//     return (
+//       <p className="text-yellow-500">⚠ Profil ma'lumotlari mavjud emas!</p>
+//     );
+
+import React from "react";
 import Navbar from "../components/Navbar";
-import Loading from "../components/Card";
-import { FaUser } from "react-icons/fa";
-import { ImCheckmark } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
+import { useGetProfileQuery } from "../redux/developersApi";
+import { ImCheckmark } from "react-icons/im";
 
 const Developers = () => {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
-  const { token } = useContext(AuthContext);
+  const { data: profile, error, isLoading } = useGetProfileQuery();
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        let storedToken = localStorage.getItem("token") || token;
-
-        if (!storedToken) {
-          setError("Token topilmadi, iltimos qayta login qiling.");
-          setLoading(false);
-          return;
-        }
-
-        const res = await fetch(
-          "https://nt-devconnector.onrender.com/api/profile",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "X-Auth-Token": storedToken,
-            },
-          }
-        );
-
-        const data = await res.json();
-
-        if (!res.ok) {
-          throw new Error(data.msg || " xatolik yuz berdi!");
-        }
-
-        setProfile(Array.isArray(data) ? data : [data]);
-      } catch (err) {
-        console.error("Xatolik:", err);
-        setError(
-          err.message || "Server yoki API bilan bog‘liq muammo yuzaga keldi."
-        );
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProfile();
-  }, [token]);
-
-  if (loading)
-    return (
-      <p>
-        <Loading />
-      </p>
-    );
-  if (error) return <p className="text-red-500">x {error}</p>;
+  if (isLoading) return <Loading />;
+  if (error)
+    return <p className="text-red-500">Xatolik yuz berdi: {error.message}</p>;
   if (profile.length === 0)
     return (
       <p className="text-yellow-500">⚠ Profil ma'lumotlari mavjud emas!</p>
