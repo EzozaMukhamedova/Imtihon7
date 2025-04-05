@@ -8,19 +8,17 @@ import Classes from "../assets/svg/classes.svg";
 import Admin from "../assets/svg/admins.png";
 import Students from "../assets/svg/stidents.svg";
 
-const Dash = () => {
+const Students = () => {
   const navigate = useNavigate();
   return (
-    <div className="border w-[1440px] mx-auto">
+    <div className="border w-[1440px]  mx-auto">
       <Navbar />
       <div className="flex ">
         <LeftWall />
 
         <div className="flex flex-col  p-8 ml-[127px] border">
           <h2 className="text-[#4F4F4F]  text-[16px] font-[500]">
-            Learn how to launch faster <br />
-            watch our webinar for tips from our experts and get a limited time
-            offer.
+            Students page
           </h2>
           <div className="bg-white rounded-lg">
             <h2 className="text-[#4F4F4F]  text-center text-[36px] font-[700] mt-[56px] mb-[23px]">
@@ -114,4 +112,4 @@ const Dash = () => {
   );
 };
 
-export default Dash;
+export default Students;

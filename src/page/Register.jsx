@@ -72,7 +72,7 @@ const Register = () => {
     <>
       <Navbar />
       <div className="flex flex-col ">
-        <h1>salom</h1>
+
         <div className="p-4 mx-auto bg-white ">
           <h2 className="text-[#4F4F4F] text-center text-[36px]  font-bold stroke-[3]">
             Welcome, Sign up

@@ -12,6 +12,9 @@ import Dash from "./page/Dash";
 
 import PostDetails from "./router/PostDetails";
 import CreateProfile from "./page/CreateProfile";
+import Teacher from "./page/Teacher";
+import AddTeacher from "./page/AddTeacher";
+import TeacherInfo from "./page/TeacherInfo";
 
 function App() {
   return (
@@ -19,7 +22,7 @@ function App() {
       <Router>
         <Routes>
           {/* <Route path="/" element={<Dashboard />} /> */}
-          <Route path="/" element={<Register  />} />
+          <Route path="/" element={<Register />} />
 
           {/* Ochiq sahifalar */}
           <Route path="/login" element={<Login />} />
@@ -34,6 +37,32 @@ function App() {
               </ProtectedRoute>
             }
           />
+          <Route
+            path="/teacher"
+            element={
+              <ProtectedRoute>
+                <Teacher />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addTeacher"
+            element={
+              <ProtectedRoute>
+                <AddTeacher />
+              </ProtectedRoute>
+            }
+          />
+              <Route
+            path="/teacher-info"
+            element={
+              <ProtectedRoute>
+                <TeacherInfo />
+              </ProtectedRoute>
+            }
+          />
+   
+
           <Route
             path="/addPosts"
             element={

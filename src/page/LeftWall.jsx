@@ -7,6 +7,8 @@ import Bank from "../assets/svg/bank.svg";
 import Settig from "../assets/svg/setting-2.svg";
 import Exams from "../assets/svg/exams.svg";
 
+import { Link } from "react-router-dom";
+
 const LeftWall = () => {
   return (
     <div>
@@ -26,9 +28,11 @@ const LeftWall = () => {
               alt="Dashboard Icon"
               className="w-[16px] h-[16px] rounded-full "
             />
-            <li className="py-[12px] px-[16px] border-white  flex-1">
-              Dashboard
-            </li>
+            <Link to="/dashboard" className="block text-white">
+              <li className="py-[12px] px-[16px] border-white  flex-1">
+                Dashboard
+              </li>
+            </Link>
           </div>
 
           <div className="flex items-center w-[202px] h-[40px] hover:bg-[#509CDB] cursor-pointer hover:rounded-[4px] px-[16px] transition duration-100 ease-in-out transform hover:translate-y-[-2px]">
@@ -37,7 +41,10 @@ const LeftWall = () => {
               alt="Dashboard Icon"
               className="w-[16px] h-[16px] rounded-full "
             />
-            <li className="py-[12px] px-[16px]  border-white ">Teachers</li>
+
+            <Link to="/teacher" className="block text-white">
+              <li className="py-[12px] px-[16px]  border-white ">Teachers</li>
+            </Link>
           </div>
 
           <div className="flex items-center w-[202px] h-[40px] hover:bg-[#509CDB] cursor-pointer hover:rounded-[4px] px-[16px] transition duration-100 ease-in-out transform hover:translate-y-[-2px]">
@@ -46,7 +53,10 @@ const LeftWall = () => {
               alt="Dashboard Icon"
               className="w-[16px] h-[16px] rounded-full "
             />
-            <li className="py-[12px] px-[16px] border-white  ">Students</li>
+
+            <Link to="/students" className="block text-white">
+              <li className="py-[12px] px-[16px] border-white  ">Students</li>
+            </Link>
           </div>
 
           <div className="flex items-center w-[202px] h-[40px] hover:bg-[#509CDB] cursor-pointer hover:rounded-[4px] px-[16px] transition duration-100 ease-in-out transform hover:translate-y-[-2px]">
@@ -55,7 +65,10 @@ const LeftWall = () => {
               alt="Dashboard Icon"
               className="w-[16px] h-[16px] rounded-full "
             />
-            <li className="py-[12px] px-[16px]  border-white  ">Billing</li>
+
+            <Link to="/billing" className="block text-white">
+              <li className="py-[12px] px-[16px]  border-white  ">Billing</li>
+            </Link>
           </div>
 
           <div className="flex items-center w-[202px] h-[40px] hover:bg-[#509CDB] cursor-pointer hover:rounded-[4px] px-[16px] transition duration-100 ease-in-out transform hover:translate-y-[-2px]">
@@ -64,9 +77,11 @@ const LeftWall = () => {
               alt="Dashboard Icon"
               className="w-[16px] h-[16px] rounded-full "
             />
-            <li className="py-[12px] px-[16px]  border-white  ">
-              Settings and profile
-            </li>
+            <Link to="/settings" className="block text-white">
+              <li className="py-[12px] px-[16px]  border-white  ">
+                Settings and profile
+              </li>
+            </Link>
           </div>
 
           <div className="flex items-center w-[202px] h-[40px] hover:bg-[#509CDB] cursor-pointer hover:rounded-[4px] px-[16px] transition duration-100 ease-in-out transform hover:translate-y-[-2px]">
@@ -75,7 +90,9 @@ const LeftWall = () => {
               alt="Dashboard Icon"
               className="w-[16px] h-[16px] rounded-full "
             />
-            <li className="py-[12px] px-[16px]  border-white  ">Exams</li>
+            <Link to="/exams" className="block text-white">
+              <li className="py-[12px] px-[16px]  border-white">Exams</li>
+            </Link>
           </div>
 
           <div className="flex items-center w-[202px] h-[40px] hover:bg-[#509CDB] cursor-pointer hover:rounded-[4px] px-[16px] transition duration-100 ease-in-out transform hover:translate-y-[-2px] mt-[114px]">
@@ -84,7 +101,9 @@ const LeftWall = () => {
               alt="Dashboard Icon"
               className="w-[16px] h-[16px] rounded-full "
             />
-            <li className="py-[12px] px-[16px]  cursor-pointer">Features</li>
+            <Link to="/features" className="block text-white">
+              <li className="py-[12px] px-[16px]  cursor-pointer">Features</li>
+            </Link>
           </div>
         </ul>
       </div>
