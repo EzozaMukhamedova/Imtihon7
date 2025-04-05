@@ -14,7 +14,7 @@ export default function Dashboard() {
           <Navbar />
         </div>
 
-        <div className="absolute top-0 left-0 w-full h-full dark-overlay"></div>
+        {/* <div className="absolute top-0 left-0 w-full h-full dark-overlay"></div>
 
         <div className="absolute top-0 left-0 flex flex-col items-center justify-center w-full h-full text-center text-white ">
           <h1 className="text-[64px] font-bold mb-[10px]">
@@ -38,7 +38,7 @@ export default function Dashboard() {
               Login
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -18,7 +18,8 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
+          {/* <Route path="/" element={<Dashboard />} /> */}
+          <Route path="/" element={<Register  />} />
 
           {/* Ochiq sahifalar */}
           <Route path="/login" element={<Login />} />

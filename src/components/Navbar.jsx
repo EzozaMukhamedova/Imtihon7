@@ -17,17 +17,14 @@ const Navbar = () => {
   };
 
   return (
-    <div className="bg-[#343a40] border-b-[1px] border-b-[#17A2B8]">
-      <div className="bg-[#343a40] w-[1440px] m-auto flex items-center justify-between h-[61px] text-white">
-        <div className="flex hover:text-[#17a2b8] cursor-pointer">
+    <div className="bg-white text-black  border-b-[#17A2B8]">
+      <div className="text-black w-[1440px] m-auto flex items-center justify-between h-[61px] ">
+        <div className="flex cursor-pointer hover:text-black">
           <NavLink
             to="/"
-            className="flex items-center text-white hover:text-[#17a2b8]"
+            className="flex items-center text-black  hover:text-[#17a2b8]"
           >
-            <RiCodeSSlashLine className="w-[25px] h-[25px] stroke-[1]" />
-            <span className="pl-[10px] text-[25px] font-[700]">
-              DevConnector
-            </span>
+  
           </NavLink>
         </div>
 
@@ -35,7 +32,7 @@ const Navbar = () => {
           <li>
             <NavLink
               to="/"
-              className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
+              className="text-black  p-[8px] text-[17px] hover:text-[#17a2b8]"
             >
               Home
             </NavLink>
@@ -46,7 +43,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/dev"
-                  className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
+                  className="text-black  p-[8px] text-[17px] hover:text-[#17a2b8]"
                 >
                   Developers
                 </NavLink>
@@ -54,7 +51,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/posts"
-                  className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
+                  className="text-black  p-[8px] text-[17px] hover:text-[#17a2b8]"
                 >
                   Posts
                 </NavLink>
@@ -62,7 +59,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/dashboard"
-                  className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
+                  className="text-black  p-[8px] text-[17px] hover:text-[#17a2b8]"
                 >
                   Dashboard
                 </NavLink>
@@ -71,7 +68,7 @@ const Navbar = () => {
               <li>
                 <button
                   onClick={handleLogout}
-                  className="text-white pl-[8px] text-[17px] hover:text-red-500 cursor-pointer"
+                  className="text-black  pl-[8px] text-[17px] hover:text-red-500 cursor-pointer"
                 >
                   Logout
                 </button>
@@ -82,7 +79,7 @@ const Navbar = () => {
               <li>
                 <NavLink
                   to="/register"
-                  className="text-white p-[8px] text-[17px] hover:text-[#17a2b8]"
+                  className="text-black  p-[8px] text-[17px] hover:text-[#17a2b8]"
                 >
                   Register
                 </NavLink>
