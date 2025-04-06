@@ -4,17 +4,28 @@ import LeftWall from "./LeftWall";
 import Lupa from "../assets/svg/lupa.svg";
 import Logout from "../components/Logout";
 import axios from "axios";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddTeacher = () => {
   const [teachersData, setTeachersData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchFlowerCategory();
+    toast.success("Muvaffaqiyatli qo'shildi");
+  }, []);
 
   const handleRowClick = (teacherId) => {
     navigate(`/teacher-info/${teacherId}`);
   };
 
   const fetchFlowerCategory = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(
         "https://green-shop-backend.onrender.com/api/flower/category/small-plants",
@@ -30,6 +41,8 @@ const AddTeacher = () => {
       setTeachersData(response.data.data);
     } catch (error) {
       console.error("Xatolik yuz berdi:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -47,6 +60,7 @@ const AddTeacher = () => {
 
   return (
     <div className="mx-auto">
+      <ToastContainer />
       <div className="flex h-screen">
         <div className="flex h-full">
           <LeftWall />
@@ -82,48 +96,69 @@ const AddTeacher = () => {
             />
           </div>
           <div className="relative overflow-x-auto border-blue-100 sm:rounded-lg">
-            <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-              <thead className="text-xs text-gray-700 uppercase bg-blue-50 dark:bg-blue-50 dark:text-gray-400">
-                <tr>
-                  <th scope="col" className="px-6 py-3">
-                    Image
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Name
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Price
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Created
-                  </th>
-                  <th scope="col" className="px-6 py-3">
-                    Description
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {filteredTeachers.map((flower, index) => (
-                  <tr
+            {isLoading ? (
+              <div>
+                {[...Array(10)].map((_, index) => (
+                  <div
                     key={index}
-                    className="bg-white border-b cursor-pointer border-b-blue-100 hover:bg-gray-100"
-                    onClick={() => handleRowClick(flower._id)}
+                    className="flex items-center p-4 space-x-4 animate-pulse"
                   >
-                    <td className="px-6 py-4">
-                      <img
-                        src={flower.main_image}
-                        alt={flower.title}
-                        className="object-cover w-10 h-10 rounded"
+                    <Skeleton circle={true} height={40} width={40} />
+                    <div className="flex-grow">
+                      <Skeleton height={20} width={`90%`} />
+                      <Skeleton
+                        height={20}
+                        width={`60%`}
+                        style={{ marginTop: 6 }}
                       />
-                    </td>
-                    <td className="px-6 py-4">{flower.title}</td>
-                    <td className="px-6 py-4">{flower.price} $</td>
-                    <td className="px-6 py-4">{flower.created_at}</td>
-                    <td className="px-6 py-4">{flower.short_description}</td>
-                  </tr>
+                    </div>
+                  </div>
                 ))}
-              </tbody>
-            </table>
+              </div>
+            ) : (
+              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead className="text-xs text-gray-900 uppercase bg-blue-50 dark:bg-blue-50 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" className="px-6 py-3 text-gray-500 ">
+                      Image
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-gray-500">
+                      Name
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-gray-500">
+                      Price
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-gray-500">
+                      Created
+                    </th>
+                    <th scope="col" className="px-6 py-3 text-gray-500">
+                      Description
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredTeachers.map((flower, index) => (
+                    <tr
+                      key={index}
+                      className="bg-white border-b cursor-pointer border-b-blue-100 hover:bg-gray-100"
+                      onClick={() => handleRowClick(flower._id)}
+                    >
+                      <td className="px-6 py-4">
+                        <img
+                          src={flower.main_image}
+                          alt={flower.title}
+                          className="object-cover w-10 h-10 rounded"
+                        />
+                      </td>
+                      <td className="px-6 py-4">{flower.title}</td>
+                      <td className="px-6 py-4">{flower.price} $</td>
+                      <td className="px-6 py-4">{flower.created_at}</td>
+                      <td className="px-6 py-4">{flower.short_description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>
