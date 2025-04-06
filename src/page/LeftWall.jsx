@@ -12,7 +12,7 @@ import { Link } from "react-router-dom";
 const LeftWall = () => {
   return (
     <div>
-      <div className="bg-[#152259] text-[14px] h-full w-[251px] pt-[26px]">
+      <div className="bg-[#152259] text-[14px] h-full w-full pt-[26px]">
         <img
           src={Logo}
           alt=""

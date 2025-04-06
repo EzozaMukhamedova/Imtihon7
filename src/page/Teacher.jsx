@@ -1,25 +1,34 @@
-import React from "react";
-
-import Navbar from "../components/Navbar";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import LeftWall from "./LeftWall";
-
+import Bell from "../assets/svg/belll.svg";
+import Lupa from "../assets/svg/lupa.svg";
 import Noteacher from "../assets/svg/noteachers.svg";
+import AuthContext from "../context/AuthContext";
+import Logout from "../components/Logout";
+
+import axios from "axios";
 
 const Teacher = () => {
   const navigate = useNavigate();
-  return (
-    <div className="border w-[1440px] mx-auto">
-      <Navbar />
-      <div className="flex ">
-        <LeftWall />
 
-        <div className="flex flex-col mx-auto p-8  border w-[1056px]">
+  const { token, setToken, setUser } = useContext(AuthContext) || {};
+  const finalToken = token || localStorage.getItem("token");
+
+  return (
+    <div className="mx-auto bg-white ">
+      <div className="flex h-screen ">
+        <div className="flex h-full">
+          <LeftWall />
+        </div>
+
+        <div className="flex flex-col w-full pt-[30px]  ml-[38px] mr-[100px]">
+          <Logout />
           <div className="flex items-baseline justify-between ">
             <h2 className="text-[#4F4F4F]  text-[20px] font-[800]">Teachers</h2>
 
             <button
-              className="w-[140px] h-[40px] cursor-pointer bg-[#509CDB] rounded-[4px] text-white py-2 mt-[15px] hover:bg-[#138a9c] transition"
+              className="w-[140px] h-[40px] mr-[28px] bg-[#509CDB]  text-white py-2 mt-[15px]   transition duration-300 ease-in-out  rounded-[8px] hover:bg-[#1a6ca7] focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:ring-opacity-50 cursor-pointer active:scale-95"
               onClick={() => navigate("/CreateProfile")}
             >
               Add Teachers
@@ -27,26 +36,30 @@ const Teacher = () => {
           </div>
 
           <div className="flex items-center w-full space-x-2 my-[30px]">
+            <button
+              className="p-2 text-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 "
+              type="button"
+            >
+              <img
+                src={Lupa}
+                alt="Dashboard Icon"
+                className="w-[20px] h-[20px] transition bg-[#FCFAFA]  duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg cursor-pointer"
+              />
+            </button>
             <input
               type="text"
               placeholder="Search for a student by name or email"
-              className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none bg-[#FCFAFA] focus:border-teal-500"
+              className="flex-1 p-2 border border-gray-300 rounded-lg  bg-[#FCFAFA] focus:outline-none focus:border-[#509CDB]  cursor-pointer  text-[14px]"
             />
-            {/* <button
-                className="p-2 text-white bg-teal-600 rounded-lg hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500"
-                type="button"
-              >
-                Search
-              </button> */}
           </div>
 
-          <div className="py-[30px] pb-[85px] border rounded-lg bg-[#FCFAFA]">
+          <div className="py-[30px] pb-[100px]   bg-[#FCFAFA]">
             <img
               src={Noteacher}
               alt=""
-              className="w-[340px] h-[255px] rounded-[50px]  mx-[88px] mx-auto"
+              className="w-[340px] h-[255px] rounded-[50px]   mx-auto"
             />
-            <h2 className="text-[#4F4F4F]  text-center text-[28px] font-[700] mt-[56px] ">
+            <h2 className="text-[#4F4F4F]  text-center text-[28px] font-[700] mt-[16px] ">
               No Teachers at this time
             </h2>
             <p className="text-[14px] text-center text-[#4F4F4F]">

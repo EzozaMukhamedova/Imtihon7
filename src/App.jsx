@@ -53,15 +53,14 @@ function App() {
               </ProtectedRoute>
             }
           />
-              <Route
-            path="/teacher-info"
+          <Route
+            path="/teacher-info/:teacherId"
             element={
               <ProtectedRoute>
                 <TeacherInfo />
               </ProtectedRoute>
             }
           />
-   
 
           <Route
             path="/addPosts"

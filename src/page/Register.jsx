@@ -1,48 +1,41 @@
 import React, { useContext, useState } from "react";
-import { BiShow, BiHide } from "react-icons/bi"; // 👁️
-import AuthContext from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { register } from "../service/authService";
-
-import Navbar from "../components/Navbar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { register } from "../service/authService";
+import AuthContext from "../context/AuthContext";
 
 const Register = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const { setUser, setToken } = useContext(AuthContext);
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     name: "",
+    surname: "",
     email: "",
     password: "",
   });
-
   const [error, setError] = useState("");
+  const { setUser, setToken } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   function handleChange(e) {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
   }
 
   async function handleSubmit(e) {
     e.preventDefault();
 
-    // if (!formData.name.trim()) {
-    //   setError("Ism maydoni bo‘sh bo‘lishi mumkin emas.");
-    //   return;
-    // }
-
     const body = {
       name: formData.name.trim(),
+      surname: formData.surname.trim(),
       email: formData.email.trim(),
       password: formData.password.trim(),
     };
+    const accessToken = "67dbc36eaf06d13e0cde0c21";
 
     try {
-      const response = await register(body);
-      if (response?.token) {
-        setToken(response.token);
+      const response = await register(body, accessToken);
+      if (response.data?.token) {
+        setToken(response.data.token);
         setUser({});
         localStorage.setItem("token", response.token);
         localStorage.setItem("user", JSON.stringify({}));
@@ -65,108 +58,87 @@ const Register = () => {
       }
     } catch (err) {
       setError("Xatolik! Qaytadan urinib ko‘ring.");
+      console.error("Register error:", err);
     }
   }
 
   return (
-    <>
-      {/* <Navbar /> */}
-      <div className="flex flex-col bg-[#FCFAFA] border">
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="mx-auto border">
-            {/* mt-[98px] mb-[98px] */}
-            <h2 className="text-[#4F4F4F] text-center text-[36px]  font-bold stroke-[3] ">
-              Welcome, Sign up
-            </h2>
-            <div className="px-[130px] py-[70px] border bg-white rounded-[4px] mt-[10px]">
-              <div className="flex items-center ml-9  mb-[34px] ">
-                <h2 className="text-[16px] text-[#667085] text-center">
-                  It is our great pleasure to have <br /> you on board!{" "}
-                </h2>
-              </div>
+    <div className="flex flex-col bg-[#FCFAFA]  min-h-screen justify-center items-center">
+      <h2 className="text-[#4F4F4F] text-center text-[36px] font-bold mb-[53px]">
+        Welcome, Sign up
+      </h2>
+      <div className="px-[130px] py-[70px] border border-blue-100 bg-white rounded-[4px] transition duration-300 ease-in-out hover:border-blue-200 hover:border-2">
+        <div className="text-center text-[#4F4F4F]">
+          {" "}
+          <span className="">
+            It is our great pleasure to have <br /> you on board!{" "}
+          </span>
+        </div>
 
-              {error && <p className="ml-4 text-red-500">{error}</p>}
+        {error && <p className="text-center text-red-500">{error}</p>}
+        <form onSubmit={handleSubmit} className="flex flex-col mt-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full h-[42px] rounded-[4px] p-2 mb-4 border border-gray-300 outline-none hover:scale-105 transition-transform duration-300 hover:border-blue-300"
+            required
+          />
 
-              <form onSubmit={handleSubmit} className="flex flex-col ">
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  className="w-[248px] h-[42px] rounded-[4px] pl-[6px] p-1 outline-none ml-4 text-[14px] border border-gray-300  mb-4 "
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your Email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  className="w-[248px] h-[42px] rounded-[4px] pl-[6px] p-1 outline-none ml-4 text-[14px] border border-gray-300  mb-[14px] "
-                  required
-                />
+          <input
+            type="text"
+            name="surname"
+            placeholder="Surname"
+            value={formData.surname}
+            onChange={handleChange}
+            className="w-full h-[42px] rounded-[4px] p-2 mb-4 border border-gray-300 outline-none hover:scale-105 transition-transform duration-300 hover:border-blue-300"
+            required
+          />
 
-                <div className="relative">
-                  {/* <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  placeholder="Password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  className="w-[248px] h-[42px] rounded-[4px] pl-[6px] p-1 ml-4 outline-none text-[14px] border border-gray-300  mb-4 pr-10"
-                  required
-                />
-                <button
-                  type="button"
-                  className="absolute right-[30px] top-[13px] cursor-pointer"
-                  onClick={() => setShowPassword(!showPassword)}
-                >
-                  {showPassword ? <BiHide /> : <BiShow />}{" "}
-                </button> */}
-                </div>
-                <div className="relative">
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    name="password"
-                    placeholder="Create your Password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    className="w-[248px] h-[42px] rounded-[4px] pl-[6px] p-1 ml-4 outline-none text-[14px] border border-gray-300  mb-2 pr-10"
-                    required
-                  />
-                  <button
-                    type="button"
-                    className="absolute right-[30px] top-[13px] cursor-pointer"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <BiHide /> : <BiShow />}{" "}
-                  </button>
-                </div>
+          <input
+            type="email"
+            name="email"
+            placeholder="Enter your Email"
+            value={formData.email}
+            onChange={handleChange}
+            className="w-full h-[42px] rounded-[4px] p-2 mb-4 border border-gray-300 outline-none hover:scale-105 transition-transform duration-300 hover:border-blue-300"
+            required
+          />
 
-                <button
-                  type="submit"
-                  className="w-[248px] h-[42px] rounded-[4px] ml-4 bg-[#2D88D4] text-white py-2 mt-4 cursor-pointer transition duration-300 ease-in-out transform hover:bg-[#1a6ca7] active:scale-95"
-                >
-                  Sign Up
-                </button>
-              </form>
+          <input
+            type="password"
+            name="password"
+            placeholder="Create your Password"
+            value={formData.password}
+            onChange={handleChange}
+            className="w-full h-[42px] rounded-[4px] p-2 mb-4 border border-gray-300 outline-none hover:scale-105 transition-transform duration-300 hover:border-blue-300"
+            required
+          />
 
-              <div className="bg-white ml-[15px] mt-[20px]">
-                <p>
-                  <span
-                    className="text-[#2D88D4] font-bold cursor-pointer text-center flex justify-center transition duration-300 ease-in-out hover:text-[#1a6ca7] hover:underline"
-                    onClick={() => navigate("/login")}
-                  >
-                    Login
-                  </span>
-                </p>
-              </div>
-            </div>
-          </div>
+          <button
+            type="submit"
+            className="w-full h-[42px] rounded-[4px] bg-[#2D88D4] text-white py-2 cursor-pointer transition duration-300 ease-in-out transform hover:bg-[#1a6ca7] active:scale-95"
+          >
+            Sign Up
+          </button>
+        </form>
+        <div className="mt-4 text-center">
+          <p>
+            <span className="text-[#4F4F4F] mr-[10px]">
+              Already have an account?
+            </span>
+            <span
+              className="text-[#2D88D4] font-bold cursor-pointer hover:text-[#1a6ca7] hover:underline"
+              onClick={() => navigate("/login")}
+            >
+              Sign In
+            </span>
+          </p>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

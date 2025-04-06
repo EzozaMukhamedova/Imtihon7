@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const developersApi = createApi({
   reducerPath: "developersApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://nt-devconnector.onrender.com/api",
+    baseUrl: "https://green-shop-backend.onrender.com/api",
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {
