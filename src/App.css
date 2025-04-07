@@ -1,3 +1,10 @@
+/* @import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap"); */
+@font-face {
+  font-family: "Kumbh Sans";
+  src: url("/public/fonts/KumbhSans.ttf") format("truetype");
+  font-weight: normal;
+}
+
 .dark-overlay {
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
     url(./assets/images/bg-devCOnnert.jpg);
@@ -13,11 +20,10 @@
 }
 
 body {
-  font-family: 'Kumbh Sans', sans-serif;
+  font-family: "Kumbh Sans", sans-serif;
 
-  background-color: #FCFAFA;
+  background-color: #fcfafa;
 }
-
 
 .parent-element {
   position: relative;

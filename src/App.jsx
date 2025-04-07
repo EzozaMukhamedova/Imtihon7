@@ -3,18 +3,23 @@ import Login from "./page/Login";
 import Register from "./page/Register";
 import { AuthProvider } from "./context/AuthContext";
 import AddPosts from "./page/AddPosts";
-import Developers from "./page/Developers";
+// import Developers from "./page/Developers";
 import Profile from "./page/Profile";
-import Posts from "./page/Posts";
+// import Posts from "./page/Posts";
 import ProtectedRoute from "./router/ProtectedRoute";
 import Dash from "./page/Dash";
 
-import PostDetails from "./router/PostDetails";
+// import PostDetails from "./router/PostDetails";
 import CreateProfile from "./page/CreateProfile";
 import Teacher from "./page/Teacher";
 import AddTeacher from "./page/AddTeacher";
 import TeacherInfo from "./page/TeacherInfo";
 // import { ToastContainer } from "react-toastify";
+import Students from "./page/Students";
+import Billings from "./page/Billing";
+import Setting from "./page/Settings";
+import Exam from "./page/Exams";
+import Feature from "./page/Features";
 
 function App() {
   return (
@@ -35,6 +40,46 @@ function App() {
               <ProtectedRoute>
                 {/* <ToastContainer /> */}
                 <Dash />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/students"
+            element={
+              <ProtectedRoute>
+                <Students />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/billing"
+            element={
+              <ProtectedRoute>
+                <Billings />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/settings"
+            element={
+              <ProtectedRoute>
+                <Setting />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/exams"
+            element={
+              <ProtectedRoute>
+                <Exam />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/features"
+            element={
+              <ProtectedRoute>
+                <Feature />
               </ProtectedRoute>
             }
           />
@@ -71,7 +116,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-          <Route
+          {/* <Route
             path="/posts"
             element={
               <ProtectedRoute>
@@ -94,7 +139,7 @@ function App() {
                 <Developers />
               </ProtectedRoute>
             }
-          />
+          /> */}
           <Route
             path="/profile/:id"
             element={

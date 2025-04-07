@@ -18,7 +18,15 @@ const AddTeacher = () => {
 
   useEffect(() => {
     fetchFlowerCategory();
-    toast.success("Muvaffaqiyatli qo'shildi");
+    toast.success("Muvaffaqiyatli qo'shildi", {
+      position: "top-right",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+    });
   }, []);
 
   const handleRowClick = (teacherId) => {

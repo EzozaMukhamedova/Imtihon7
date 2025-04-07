@@ -1,109 +1,70 @@
-import React from "react";
-import Navbar from "../components/Navbar";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import LeftWall from "./LeftWall";
 
-import Classes from "../assets/svg/classes.svg";
-import Admin from "../assets/svg/admins.png";
-import Students from "../assets/svg/stidents.svg";
+import Lupa from "../assets/svg/lupa.svg";
+import Noteacher from "../assets/svg/noteachers.svg";
+import AuthContext from "../context/AuthContext";
+import Logout from "../components/Logout";
 
-const Billing = () => {
+import axios from "axios";
+
+const Billings = () => {
   const navigate = useNavigate();
+
+  const { token, setToken, setUser } = useContext(AuthContext) || {};
+  const finalToken = token || localStorage.getItem("token");
+
   return (
-    <div className="border w-[1440px]">
-      <Navbar />
-      <div className="flex ">
-        <LeftWall />
+    <div className="mx-auto bg-white ">
+      <div className="flex h-screen ">
+        <div className="flex h-full">
+          <LeftWall />
+        </div>
 
-        <div className="flex flex-col  p-8 ml-[127px] border">
-          <h2 className="text-[#4F4F4F]  text-[16px] font-[500]">
-            Billins page
-          </h2>
-          <div className="bg-white rounded-lg">
-            <h2 className="text-[#4F4F4F]  text-center text-[36px] font-[700] mt-[56px] mb-[23px]">
-              Welcome to your dashboard, Udemy school
-            </h2>
-            <div className="flex items-center ">
-              <h2 className="text-[24px] text-[#4F4F4F] ml-[10px] font-[700]">
-                Uyo/school/@teachable.com
-                <span className="font-bold">
-     
-                </span>{" "}
-              </h2>
-            </div>
-
-            <div className=" flex flex-col mt-[71px] mb-[51px]">
-              <div className="flex">
-                {" "}
-                <img
-                  src={Admin}
-                  alt="Dashboard Icon"
-                  className="w-[36px] h-[36px] mr-[20px] "
-                />
-                <div className="flex flex-col ">
-                  <span className="text-[#4F4F4F] text-[24px] font-[600] mb-[16px]  ">
-                    Add other admins
-                  </span>
-                  <span className="text-[14px] ">
-                    Create rich course content and coaching products for your
-                    students. <br />
-                    When you give them a pricing plan, they’ll appear on your
-                    site!
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className=" flex flex-col mt-[71px] mb-[51px]">
-              <div className="flex">
-                {" "}
-                <img
-                  src={Classes}
-                  alt="Dashboard Icon"
-                  className="w-[36px] h-[36px] mr-[20px] "
-                />
-                <div className="flex flex-col ">
-                  <span className="text-[#4F4F4F] text-[24px] font-[600] mb-[16px]  ">
-                    Add classes
-                  </span>
-                  <span className="text-[14px] ">
-                    Create rich course content and coaching products for your
-                    students. <br />
-                    When you give them a pricing plan, they’ll appear on your
-                    site!
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            <div className=" flex flex-col mt-[71px] mb-[51px]">
-              <div className="flex">
-                {" "}
-                <img
-                  src={Students}
-                  alt="Dashboard Icon"
-                  className="w-[36px] h-[36px] mr-[20px] "
-                />
-                <div className="flex flex-col ">
-                  <span className="text-[#4F4F4F] text-[24px] font-[600] mb-[16px]  ">
-                    Add students
-                  </span>
-                  <span className="text-[14px] ">
-                    Create rich course content and coaching products for your
-                    students. <br />
-                    When you give them a pricing plan, they’ll appear on your
-                    site!
-                  </span>
-                </div>
-              </div>
-            </div>
+        <div className="flex flex-col w-full pt-[30px]  ml-[38px] mr-[100px]">
+          <Logout />
+          <div className="flex items-baseline justify-between ">
+            <h2 className="text-[#4F4F4F]  text-[20px] font-[800]">Billings</h2>
 
             <button
-              className="w-[140px] h-[40px] cursor-pointer bg-[#17a2b8] text-white py-2 mt-[15px] hover:bg-[#138a9c] transition"
-              onClick={() => navigate("/CreateProfile")}
+              className="w-[140px] h-[40px] mr-[28px] bg-[#509CDB]  text-white py-2 mt-[15px]   transition duration-300 ease-in-out  rounded-[8px] hover:bg-[#1a6ca7] focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:ring-opacity-50 cursor-pointer active:scale-95"
+              // onClick={() => navigate("/CreateProfile")}
             >
-              Create Profile
+              Add Billing
             </button>
+          </div>
+
+          <div className="flex items-center w-full space-x-2 my-[30px]">
+            <button
+              className="p-2 text-white border border-gray-300 rounded-lg focus:outline-none focus:ring-2 "
+              type="button"
+            >
+              <img
+                src={Lupa}
+                alt="Dashboard Icon"
+                className="w-[20px] h-[20px] transition bg-[#FCFAFA]  duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg cursor-pointer"
+              />
+            </button>
+            <input
+              type="text"
+              placeholder="Search for a student by name or email"
+              className="flex-1 p-2 border border-gray-300 rounded-lg  bg-[#FCFAFA] focus:outline-none focus:border-[#509CDB]  cursor-pointer  text-[14px]"
+            />
+          </div>
+
+          <div className="py-[30px] pb-[100px]   bg-[#FCFAFA]">
+            <img
+              src={Noteacher}
+              alt=""
+              className="w-[340px] h-[255px] rounded-[50px]   mx-auto"
+            />
+            <h2 className="text-[#4F4F4F]  text-center text-[28px] font-[700] mt-[16px] ">
+              No Billings at this time
+            </h2>
+            <p className="text-[14px] text-center text-[#4F4F4F]">
+              Teachers will appear here after they enroll in your school.{" "}
+            </p>
           </div>
         </div>
       </div>
@@ -111,4 +72,4 @@ const Billing = () => {
   );
 };
 
-export default Billing;
+export default Billings;

@@ -9,7 +9,7 @@ import Logout from "../components/Logout";
 
 import axios from "axios";
 
-const Setting = () => {
+const Student = () => {
   const navigate = useNavigate();
 
   const { token, setToken, setUser } = useContext(AuthContext) || {};
@@ -25,13 +25,13 @@ const Setting = () => {
         <div className="flex flex-col w-full pt-[30px]  ml-[38px] mr-[100px]">
           <Logout />
           <div className="flex items-baseline justify-between ">
-            <h2 className="text-[#4F4F4F]  text-[20px] font-[800]">Settings</h2>
+            <h2 className="text-[#4F4F4F]  text-[20px] font-[800]">Students</h2>
 
             <button
               className="w-[140px] h-[40px] mr-[28px] bg-[#509CDB]  text-white py-2 mt-[15px]   transition duration-300 ease-in-out  rounded-[8px] hover:bg-[#1a6ca7] focus:outline-none focus:ring-2 focus:ring-[#3b82f6] focus:ring-opacity-50 cursor-pointer active:scale-95"
               // onClick={() => navigate("/CreateProfile")}
             >
-              Add Setting
+              Add Student
             </button>
           </div>
 
@@ -60,7 +60,7 @@ const Setting = () => {
               className="w-[340px] h-[255px] rounded-[50px]   mx-auto"
             />
             <h2 className="text-[#4F4F4F]  text-center text-[28px] font-[700] mt-[16px] ">
-              No Settings at this time
+              No Students at this time
             </h2>
             <p className="text-[14px] text-center text-[#4F4F4F]">
               Teachers will appear here after they enroll in your school.{" "}
@@ -72,4 +72,4 @@ const Setting = () => {
   );
 };
 
-export default Setting;
+export default Student;
