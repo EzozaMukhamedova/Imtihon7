@@ -6,14 +6,16 @@ import Logout from "../components/Logout";
 import axios from "axios";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
-
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Pagination } from "antd";
 
 const AddTeacher = () => {
   const [teachersData, setTeachersData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 5;
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -28,10 +30,6 @@ const AddTeacher = () => {
       progress: undefined,
     });
   }, []);
-
-  const handleRowClick = (teacherId) => {
-    navigate(`/teacher-info/${teacherId}`);
-  };
 
   const fetchFlowerCategory = async () => {
     setIsLoading(true);
@@ -55,16 +53,57 @@ const AddTeacher = () => {
     }
   };
 
-  useEffect(() => {
-    fetchFlowerCategory();
-  }, []);
+  const handleRowClick = (teacherId) => {
+    navigate(`/teacher-info/${teacherId}`);
+  };
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+    setCurrentPage(1);
+  };
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+
+  const handleDelete = async (id) => {
+    const isConfirmed = window.confirm(
+      "Are you sure you want to delete this item? This action cannot be undone."
+    );
+    if (!isConfirmed) return;
+
+    try {
+      await axios.delete(
+        `https://green-shop-backend.onrender.com/api/flower/${id}`,
+        {
+          headers: {
+            Authorization: "Bearer 67dbc36eaf06d13e0cde0c21",
+          },
+        }
+      );
+      setTeachersData((prev) => prev.filter((item) => item._id !== id));
+      toast.success("O‘chirildi!", {
+        position: "top-right",
+        autoClose: 2000,
+      });
+    } catch (error) {
+      console.error("O‘chirishda xatolik:", error);
+      toast.error("Xatolik yuz berdi!", {
+        position: "top-right",
+        autoClose: 2000,
+      });
+    }
   };
 
   const filteredTeachers = teachersData.filter((teacher) =>
     teacher.title.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
+  const indexOfLastItem = currentPage * pageSize;
+  const indexOfFirstItem = indexOfLastItem - pageSize;
+  const currentTeachers = filteredTeachers.slice(
+    indexOfFirstItem,
+    indexOfLastItem
   );
 
   return (
@@ -107,7 +146,7 @@ const AddTeacher = () => {
           <div className="relative overflow-x-auto border-blue-100 sm:rounded-lg">
             {isLoading ? (
               <div>
-                {[...Array(10)].map((_, index) => (
+                {[...Array(5)].map((_, index) => (
                   <div
                     key={index}
                     className="flex items-center p-4 space-x-4 animate-pulse"
@@ -125,48 +164,67 @@ const AddTeacher = () => {
                 ))}
               </div>
             ) : (
-              <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead className="text-xs text-gray-900 uppercase bg-blue-50 dark:bg-blue-50 dark:text-gray-400">
-                  <tr>
-                    <th scope="col" className="px-6 py-3 text-gray-500 ">
-                      Image
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-gray-500">
-                      Name
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-gray-500">
-                      Price
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-gray-500">
-                      Created
-                    </th>
-                    <th scope="col" className="px-6 py-3 text-gray-500">
-                      Description
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredTeachers.map((flower, index) => (
-                    <tr
-                      key={index}
-                      className="bg-white border-b cursor-pointer border-b-blue-100 hover:bg-gray-100"
-                      onClick={() => handleRowClick(flower._id)}
-                    >
-                      <td className="px-6 py-4">
-                        <img
-                          src={flower.main_image}
-                          alt={flower.title}
-                          className="object-cover w-10 h-10 rounded"
-                        />
-                      </td>
-                      <td className="px-6 py-4">{flower.title}</td>
-                      <td className="px-6 py-4">{flower.price} $</td>
-                      <td className="px-6 py-4">{flower.created_at}</td>
-                      <td className="px-6 py-4">{flower.short_description}</td>
+              <>
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <thead className="text-xs text-gray-900 uppercase bg-blue-50 dark:bg-blue-50 dark:text-gray-400">
+                    <tr>
+                      <th className="px-6 py-3 text-gray-500">Image</th>
+                      <th className="px-6 py-3 text-gray-500">Name</th>
+                      <th className="px-6 py-3 text-gray-500">Price</th>
+                      <th className="px-6 py-3 text-gray-500">Created</th>
+                      <th className="px-6 py-3 text-gray-500">Description</th>
+                      <th className="px-6 py-3 text-gray-500">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {currentTeachers.map((flower, index) => (
+                      <tr
+                        key={index}
+                        className="bg-white border-b border-b-blue-100 hover:bg-gray-100"
+                      >
+                        <td className="px-6 py-4">
+                          <img
+                            src={flower.main_image}
+                            alt={flower.title}
+                            className="object-cover w-10 h-10 rounded"
+                          />
+                        </td>
+                        <td className="px-6 py-4">{flower.title}</td>
+                        <td className="px-6 py-4">{flower.price} $</td>
+                        <td className="px-6 py-4">{flower.created_at}</td>
+                        <td className="px-6 py-4">
+                          {flower.short_description}
+                        </td>
+                        <td className="px-6 py-4">
+                          <div className="flex space-x-2">
+                            <button
+                              className="px-3 py-1 text-white transition bg-[#509CDB] rounded hover:bg-[#1a6ca7bb] cursor-pointer"
+                              onClick={() => handleRowClick(flower._id)}
+                            >
+                              View
+                            </button>
+                            <button
+                              className="px-3 py-1 text-white transition bg-[#FF5C5C] rounded cursor-pointer hover:bg-[#E14C4C]"
+                              onClick={() => handleDelete(flower._id)}
+                            >
+                              Delete
+                            </button>
+                          </div>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <div className="flex justify-center mt-4">
+                  <Pagination
+                    current={currentPage}
+                    pageSize={pageSize}
+                    total={filteredTeachers.length}
+                    onChange={handlePageChange}
+                    showSizeChanger={false}
+                  />
+                </div>
+              </>
             )}
           </div>
         </div>
