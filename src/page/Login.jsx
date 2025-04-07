@@ -247,7 +247,7 @@ const Login = () => {
         <h2 className="text-[#4F4F4F] text-[36px] font-bold text-center ">
           Welcome, Log into your account
         </h2>
-        <div className="mx-auto bg-white border-blue-100 rounded-[5px] mt-[50px] px-[134px] py-[70px] transition duration-300 ease-in-out hover:border-blue-200 hover:border-2">
+        <div className="mx-auto bg-white  border border-blue-100 rounded-lg shadow-lg mt-[50px] px-[134px] py-[70px] transition duration-300 ease-in-out  hover:border  hover:shadow-xl hover:border-blue-100">
           {error && <p className="text-center text-red-500">{error}</p>}
           <form onSubmit={handleSubmit} className="flex flex-col">
             <input

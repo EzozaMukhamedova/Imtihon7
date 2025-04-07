@@ -220,10 +220,10 @@ const Register = () => {
   return (
     <div className="flex flex-col bg-[#FCFAFA] min-h-screen justify-center items-center">
       <ToastContainer />
-      <h2 className="text-[#4F4F4F] text-center text-[36px] font-bold mb-[53px]">
+      <h2 className="text-[#4F4F4F]  text-center text-[36px] font-bold mb-[53px]">
         Welcome, Sign up
       </h2>
-      <div className="px-[130px] py-[70px] border border-blue-100 bg-white rounded-[4px] transition duration-300 ease-in-out hover:border-blue-200 hover:border-2">
+      <div className="px-[130px] py-[70px] border border-blue-100 rounded-lg shadow-lg bg-white transition duration-300 ease-in-out  hover:border  hover:shadow-xl hover:border-blue-100">
         <div className="text-center text-[#4F4F4F]">
           <span>
             It is our great pleasure to have <br /> you on board!
