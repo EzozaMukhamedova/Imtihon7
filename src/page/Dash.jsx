@@ -28,12 +28,36 @@ const Dash = () => {
   }, []);
 
   const handleLogout = () => {
-    setToken(null);
-    setUser(null);
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login");
+    toast.info("Logging out...", {
+      position: "top-center",
+      autoClose: 3000,
+      onClose: () => {
+        navigate("/login", { replace: true });
+      },
+    });
   };
+
+  // const handleLogout = () => {
+
+  //   setToken(null);
+  //   setUser(null);
+  //   localStorage.removeItem("token");
+  //   localStorage.removeItem("user");
+
+  //   toast.info("Login pagega qaytayapmiz...", {
+  //     position: "top-center",
+  //     autoClose: 3000,
+  //     hideProgressBar: false,
+  //     closeOnClick: true,
+  //     pauseOnHover: true,
+  //     draggable: true,
+  //     progress: undefined,
+  //   });
+
+  //   setTimeout(() => {
+  //     navigate("/login", { replace: true });
+  //   }, 3000);
+  // };
 
   return (
     <>
@@ -54,7 +78,7 @@ const Dash = () => {
               <img
                 src={Bell}
                 alt="Dashboard Icon"
-                className="w-[28px] h-[28px] mr-[-140px] transition duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg cursor-pointer"
+                className="w-[28px] h-[28px] mr-[-260px] transition duration-300 ease-in-out transform hover:scale-110 hover:shadow-lg cursor-pointer"
               />
 
               <button

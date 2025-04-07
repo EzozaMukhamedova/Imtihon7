@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Dashboard from "./page/Dashboard";
 import Login from "./page/Login";
 import Register from "./page/Register";
 import { AuthProvider } from "./context/AuthContext";
@@ -15,6 +14,7 @@ import CreateProfile from "./page/CreateProfile";
 import Teacher from "./page/Teacher";
 import AddTeacher from "./page/AddTeacher";
 import TeacherInfo from "./page/TeacherInfo";
+// import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
@@ -33,6 +33,7 @@ function App() {
             path="/dashboard"
             element={
               <ProtectedRoute>
+                {/* <ToastContainer /> */}
                 <Dash />
               </ProtectedRoute>
             }

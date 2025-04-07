@@ -107,9 +107,12 @@ const TeacherInfo = () => {
             </div>
 
             <div className="w-2/3 p-4">
-              {/* <h1 className="mb-2 text-2xl font-bold text-gray-800">
-                {teacher.title}
-              </h1> */}
+              <button
+                onClick={() => navigate("/addTeacher")}
+                className="absolute top-[50px] left-[450px] py-2 px-5 m-4  text-white transition duration-300 bg-[#509CDB] rounded-[8px] hover:bg-[#1a6ca7] focus:ring-[#3b82f6] focus:ring-opacity-50 cursor-pointer active:scale-95"
+              >
+                Back
+              </button>
               <p className="mb-4 text-[28px] font-semibold text-blue-400">
                 ${teacher.price}
               </p>

@@ -1,5 +1,4 @@
 import React from "react";
-import { FaUser } from "react-icons/fa";
 import Navbar from "../components/Navbar";
 import { useNavigate } from "react-router-dom";
 import LeftWall from "./LeftWall";
@@ -28,7 +27,7 @@ const Billing = () => {
               <h2 className="text-[24px] text-[#4F4F4F] ml-[10px] font-[700]">
                 Uyo/school/@teachable.com
                 <span className="font-bold">
-                  {/* {user?.name || "Guest"} */}
+     
                 </span>{" "}
               </h2>
             </div>
