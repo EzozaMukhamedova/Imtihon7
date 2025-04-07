@@ -82,17 +82,23 @@ const LeftWall = () => {
             <li className="py-[12px] flex-1 text-white">Students</li>
           </NavLink>
 
-          <div className="flex items-center w-[202px] h-[40px] hover:bg-[#509CDB] cursor-pointer hover:rounded-[4px] px-[16px] transition duration-100 ease-in-out transform hover:translate-y-[-2px]">
+          <NavLink
+            to="/billing"
+            className={({ isActive }) =>
+              `flex items-center w-[202px] h-[40px] rounded-[4px] px-[16px] cursor-pointer transition duration-100 ease-in-out transform ${
+                isActive
+                  ? "bg-[#1a6ca778] hover:bg-[#1a6ca7]"
+                  : "hover:bg-[#509CDB] hover:translate-y-[-2px]"
+              }`
+            }
+          >
             <img
               src={Bank}
-              alt="Dashboard Icon"
-              className="w-[16px] h-[16px] rounded-full "
+              alt="Billing Icon"
+              className="w-[16px] h-[16px] mr-[16px] rounded-full"
             />
-
-            <Link to="/billing" className="block text-white">
-              <li className="py-[12px] px-[16px]  border-white  ">Billing</li>
-            </Link>
-          </div>
+            <li className="py-[12px] flex-1 text-white">Billing</li>
+          </NavLink>
 
           <NavLink
             to="/settings"
@@ -114,16 +120,23 @@ const LeftWall = () => {
             </li>
           </NavLink>
 
-          <div className="flex items-center w-[202px] h-[40px] hover:bg-[#509CDB] cursor-pointer hover:rounded-[4px] px-[16px] transition duration-100 ease-in-out transform hover:translate-y-[-2px]">
+          <NavLink
+            to="/exams"
+            className={({ isActive }) =>
+              `flex items-center w-[202px] h-[40px] rounded-[4px] px-[16px] cursor-pointer transition duration-100 ease-in-out ${
+                isActive
+                  ? "bg-[#1a6ca778] hover:bg-[#1a6ca7]"
+                  : "hover:bg-[#509CDB] hover:translate-y-[-2px]"
+              }`
+            }
+          >
             <img
               src={Exams}
-              alt="Dashboard Icon"
-              className="w-[16px] h-[16px] rounded-full "
+              alt="Exams Icon"
+              className="w-[16px] h-[16px] mr-[16px] rounded-full"
             />
-            <Link to="/exams" className="block text-white">
-              <li className="py-[12px] px-[16px]  border-white">Exams</li>
-            </Link>
-          </div>
+            <li className="py-[12px] flex-1 text-white">Exams</li>
+          </NavLink>
 
           <NavLink
             to="/features"
